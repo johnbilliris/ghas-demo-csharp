@@ -34,7 +34,13 @@ namespace OWASP.WebGoat.NET.App_Code.DB
         {   
             try
             {
-                using (SqliteConnection conn = new SqliteConnection(_connectionString))
+
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder["Data Source"] = "(local)";
+                builder["integrated Security"] = true;
+                builder["user id"] = userName;
+        
+                using (SqlConnection sqlConnectionGood = new SqlConnection(builder.ConnectionString))
                 {
                     conn.Open();
                     
